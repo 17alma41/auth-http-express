@@ -41,10 +41,16 @@ app.get('/protected', authMiddleware, (req, res) => {
   const [username] = credentials.split(':');
   
   res.send(`Bienvenido ${username}, has accedido a una ruta protegida.`);
+  
+});
+
+// Endpoint para que solo lo vea el usuario que se ha logueado
+app.get('/mensaje', authMiddleware, (req, res) => {
+  res.send(`Hola guapo`);
 });
 
 app.get('/logout', (req, res) => {
-  //res.setHeader('WWW-Authenticate', `Basic realm="${realm}"`);
+  res.setHeader('WWW-Authenticate', `Basic realm="${realm}"`);
   res.status(401).send('Has sido deslogueado');
 });
 
